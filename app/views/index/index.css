@@ -1,0 +1,11 @@
+main {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+}
+
+table {
+	width: 400px;
+	height: 300px;
+	flex-shrink: 0;
+}
