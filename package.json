@@ -4,7 +4,7 @@
   "description": "",
   "main": "app/main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha",
     "start": "electron app/main_process/main.js"
   },
   "keywords": [],
@@ -15,5 +15,9 @@
     "knex": "^3.1.0",
     "mariadb": "^3.2.3",
     "mysql": "^2.18.1"
+  },
+  "devDependencies": {
+    "chai": "^5.0.0",
+    "mocha": "^10.2.0"
   }
 }
