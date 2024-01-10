@@ -12,7 +12,6 @@ class Paciente {
   }
 
   static getRows() {
-    console.log("Dentro de getPacientes");
     const db = new Connection()
 
     return new Promise((resolve, reject) => {
