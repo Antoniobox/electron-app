@@ -1,14 +1,13 @@
 const {BrowserWindow, app} = require('electron')
 const path = require('path')
-const {initPacientesHandlers} = require('./handlers.js')
 
 /**
  * Instancia la ventana principal
  */
 function createMainWindow() {
-	var win = new BrowserWindow({
+	const win = new BrowserWindow({
 		width: 800,
-		heigth: 600,
+		height: 600,
 		webPreferences: {
 			preload: path.join(__dirname, "../preloads/p_paciente.js")
 		}
@@ -23,7 +22,7 @@ function createMainWindow() {
  */
 function setEventsForWindow() {
 	app.on("activate", ()=>{
-		if(BrowserWindow.getAllWindows.length===0) createMainWindow()
+		if(BrowserWindow.getAllWindows().length===0) createMainWindow()
 	})	
 
 	app.on("window-all-closed", ()=>{
@@ -31,15 +30,4 @@ function setEventsForWindow() {
 	})
 }
 
-/**
- * Crea la ventana principal e inicializa los eventos de la ventana
- */
-function initMainWindow() {
-	app.whenReady().then(()=>{
-		createMainWindow()
-		setEventsForWindow()
-		initPacientesHandlers()
-	})
-}
-
-module.exports = {initMainWindow}
+module.exports = {createMainWindow, setEventsForWindow}

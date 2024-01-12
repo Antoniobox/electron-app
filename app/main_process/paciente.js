@@ -1,5 +1,10 @@
 const knex = require('knex');
 const {Connection} = require('./common/connection.js')
+
+/**
+ * Clase Paciente
+ * Modelo de la entidad Paciente
+ */
 class Paciente {
   constructor(id = undefined, sip = undefined, dni = undefined, nombre = undefined, apellido1 = undefined) {
     if (id != undefined) {
@@ -15,7 +20,7 @@ class Paciente {
     const db = new Connection()
 
     return new Promise((resolve, reject) => {
-      db.conn.select('*').from('pacientes').limit(200)
+      db.conn.select().from('pacientes').limit(100)
         .then((pacientes) => {
           resolve(pacientes);
         })
@@ -23,6 +28,20 @@ class Paciente {
           reject(error);
         })
     });
+  }
+
+  static getMedico(dni) {
+    const db = new Connection()
+
+    return new Promise((resolve, reject)=> {
+      db.conn.select().from('medicos').join('pacientes', function(){
+        on('pacientes.id_medico','=','medicos.id').where('medicos.id', '=',dni)
+      }).then((medico)=>{
+        resolve(medico)
+      }).catch((error)=>{
+        reject(error)
+      })
+    })
   }
 }
 

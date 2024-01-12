@@ -5,12 +5,14 @@
   "main": "app/main.js",
   "scripts": {
     "test": "mocha",
-    "start": "electron app/main_process/main.js"
+    "start": "electron app/main_process/main.js",
+    "pack": "asar pack app/ app.asar"
   },
   "keywords": [],
   "author": "AntonioBox",
   "license": "ISC",
   "dependencies": {
+    "asar": "^3.2.0",
     "electron": "^28.1.1",
     "knex": "^3.1.0",
     "mariadb": "^3.2.3",
