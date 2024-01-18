@@ -20,7 +20,7 @@ class Paciente {
     const db = new Connection()
 
     return new Promise((resolve, reject) => {
-      db.conn.select().from('pacientes').limit(100)
+      db.conn.select('*').from('pacientes').limit(100)
         .then((pacientes) => {
           resolve(pacientes);
         })
@@ -30,13 +30,15 @@ class Paciente {
     });
   }
 
-  static getMedico(dni) {
+  static getMedico(id) {
     const db = new Connection()
-
     return new Promise((resolve, reject)=> {
-      db.conn.select().from('medicos').join('pacientes', function(){
-        on('pacientes.id_medico','=','medicos.id').where('medicos.id', '=',dni)
+      db.conn.select({
+        nombre: "medicos.nombre"
+      }).from('medicos').where('pacientes.id', id).join('pacientes', function(){
+        this.on('pacientes.medico_id','=','medicos.id')
       }).then((medico)=>{
+        console.log(medico)
         resolve(medico)
       }).catch((error)=>{
         reject(error)

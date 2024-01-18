@@ -1,5 +1,8 @@
 const { ipcMain } = require('electron')
 
+/** 
+  * Inicializa los handlers relaciones con los pacientes
+ */
 function initPacientesHandlers() {
 	ipcMain.handle("getPacientes", async (event, args)=>{
 		const {Paciente} = require('./paciente.js')
@@ -8,7 +11,6 @@ function initPacientesHandlers() {
 	})
 	ipcMain.handle("getMedico", async (event, args)=>{
 		const {Paciente} = require('./paciente.js')
-		console.log("ARGS: "+args)
 		const medico = await Paciente.getMedico(args)
 		return medico
 	})
