@@ -69,8 +69,20 @@ class Paciente {
     }
   }
 
-  async setPaciente(id) {
-    // Implementa según sea necesario.
+  async update() {
+    const db = new Connection()
+    let resultado = undefined
+    try {
+      resultado = await db.conn('pacientes')
+      .where('id', this._id)
+      .update({
+        nombre: this._nombre,
+        apellido1: this._apellido1
+      })
+    }catch(error) {
+      return "Error: "+error
+    }
+    return "Resultado: "+resultado
   }
 }
 

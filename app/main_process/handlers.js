@@ -29,8 +29,13 @@ function initPacientesHandlers() {
 
 		let paciente = new Paciente(true, args)
 		await paciente.init(args)
-		console.log("Desde el handler: "+JSON.stringify(paciente))
 		ventanaEditar.webContents.send('paciente-a-editar', paciente)
+	})
+	ipcMain.handle('update', async (event, args)=>{
+		let dataPaciente = args
+		const paciente = new Paciente(false, dataPaciente.id, dataPaciente.sip, dataPaciente.dni, dataPaciente.nombre, dataPaciente.apellido1)
+		const res = await paciente.update()
+		return res
 	})
 }
 

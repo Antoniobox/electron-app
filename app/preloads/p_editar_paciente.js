@@ -1,5 +1,6 @@
 const {contextBridge, ipcRenderer} = require('electron')
 
 contextBridge.exposeInMainWorld('api', {
-    onEditPaciente: (callback)=>ipcRenderer.on('paciente-a-editar', (_event, args)=>callback(args))
+    onEditPaciente: (callback)=>ipcRenderer.on('paciente-a-editar', (_event, args)=>callback(args)),
+    update: async (newFields)=> await ipcRenderer.invoke('update', newFields)
 })
